@@ -11,11 +11,16 @@ import shutil
 from PIL import Image
 import re
 
-# 修改后的crq格式文件保存路径，保存到当前脚本下的路径
-outDir = os.path.abspath('E:/project/RenamePicture/outdir')
-# print(outDir)
+# 修改后的cr2格式文件保存路径，保存到当前脚本下的路径
+outDir = os.path.abspath('./outdir/')
+print(outDir)
+isExists = os.path.exists(outDir)
+# 判断文件夹是否存在
+if not isExists:
+        os.makedirs(outDir)
+
 # 指定第一个文件夹的位置
-imageDir1 = os.path.abspath('E:/project/RenamePicture/jpeg')
+imageDir1 = input("输入jpg文件地址:")
 
 # 定义要处理的第一个文件夹变量
 image1 = []  # image1指文件夹里的文件，包括文件后缀格式；
@@ -34,10 +39,10 @@ for item in image1:
     imgname1.append(temp1)
 # print(image1)
 # 对于第二个文件夹路径，做同样的操作
-imageDir2 = os.path.abspath('E:/project/RenamePicture/cr2')
+imageDir2 = input("输入cr2文件地址:")
 image2 = []
 imgname2 = []
-imageList2 = glob.glob(os.path.join(imageDir2, '*.psd'))
+imageList2 = glob.glob(os.path.join(imageDir2, '*.cr2'))
 
 for item in imageList2:
     image2.append(os.path.basename(item))
@@ -58,6 +63,7 @@ for item1 in imgname1:
             name = os.path.basename(dir)
             shutil.copy(dir, outDir)
             old_name = os.path.join(outDir,name)
-            new_item = item1 + '.psd'
+            new_item = item1 + '.cr2'
             new_name = os.path.join(outDir,new_item)
             os.rename(old_name,new_name)
+print("修改完毕")
